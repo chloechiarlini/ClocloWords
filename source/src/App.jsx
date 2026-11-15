@@ -1,10 +1,11 @@
-import {useState,useEffect} from "react";
+import {useState,useEffect,useRef} from "react";
 const KEY="memo_v1",blank={cards:[],log:{},n:0,synced:0};
 const load=()=>{try{return {...blank,...JSON.parse(localStorage.getItem(KEY)||"{}")}}catch{return blank}};
 const dstr=d=>new Date(d.getTime()-d.getTimezoneOffset()*6e4).toISOString().slice(0,10);
 const norm=s=>s.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9 ]/g," ").replace(/\s+/g," ").trim();
 const art=s=>s.replace(/^(to|the|a|an|le|la|les|un|une|l) /,"");
 function variants(s){s=s.replace(/\(selon[^)]*\)/gi,"");const m=s.match(/\(([^) ]{1,4})\)/),o=[s.replace(/\([^)]*\)/g," ")];if(m)o.push(s.replace(/\(([^) ]{1,4})\)/,"$1"));return o.map(x=>art(norm(x))).filter(Boolean)}
+const hash=s=>{let h=0;for(const c of s)h=(h*31+c.charCodeAt(0))|0;return h};
 const W=[8,5,3,2,1.2],COL=["bg-ko","bg-ko","bg-mid","bg-mid","bg-ok"],RING={g:"border-ok",y:"border-mid",r:"border-ko"};
 function pick(cs,last){const p=cs.length>1?cs.filter(c=>c.id!==last):cs;let r=Math.random()*p.reduce((a,c)=>a+W[c.lv],0);for(const c of p){r-=W[c.lv];if(r<=0)return c}return p[0]}
 function streak(log){let n=0;const d=new Date();if(!log[dstr(d)])d.setDate(d.getDate()-1);while(log[dstr(d)]){n++;d.setDate(d.getDate()-1)}return n}
@@ -27,13 +28,21 @@ export default function App(){
     setCur({...cur,flipped:true,res})};
   const check=()=>{const v=art(norm(cur.raw));if(!v)return;const a=cur.dir==="en-fr"?card.fr:card.en;
     finish(a.split(/\s*\/\s*/).some(x=>variants(x).includes(v))?"g":"r",cur.raw)};
-  const sync=text=>{let add=0,upd=0;const cards=[...d.cards];
+  const sync=(text,quiet)=>{let add=0,upd=0;const cards=[...d.cards];
     parse(text).forEach(([en,fr])=>{const i=cards.findIndex(c=>norm(c.en)===norm(en));
       if(i>=0){if(cards[i].fr!==fr||cards[i].en!==en){cards[i]={...cards[i],en,fr};upd++}}
       else{cards.push({id:Date.now()+Math.random(),en,fr,lv:0,seen:0,ok:0,ko:0,created:Date.now()});add++}});
-    setD({...d,cards,synced:Date.now()});if(add)setCur(null);
-    say(add||upd?`${add} nouveau${add>1?"x":""}, ${upd} mis à jour`:"Tout est déjà à jour.")};
+    setD({...d,cards,synced:Date.now(),lastHash:hash(text)});if(add)setCur(null);
+    if(add||upd||!quiet)say(add||upd?`${add} nouveau${add>1?"x":""}, ${upd} mis à jour`:"Tout est déjà à jour.")};
   const paste=()=>navigator.clipboard.readText().then(x=>{if(!x.includes("="))return say("Le presse-papiers ne contient pas ta note.");sync(x)}).catch(()=>{setView("note");setManual(true);say("Colle ta note dans la zone.")});
+
+  const sr=useRef();sr.current=sync;const lh=useRef();lh.current=d.lastHash;
+  useEffect(()=>{let armed=true;
+    const tap=()=>{if(!armed||!navigator.clipboard?.readText)return;armed=false;
+      navigator.clipboard.readText().then(x=>{if(x.split("\n").filter(l=>/\S\s=\s\S/.test(l)).length>=2&&hash(x)!==lh.current)sr.current(x,true)}).catch(()=>{})};
+    const vis=()=>{if(!document.hidden)armed=true};
+    addEventListener("pointerdown",tap);document.addEventListener("visibilitychange",vis);
+    return()=>{removeEventListener("pointerdown",tap);document.removeEventListener("visibilitychange",vis)}},[]);
 
   const Play=()=>{
     if(!d.cards.length)return <div className="rise px-4 py-16 text-center text-mute"><p className="mb-2 text-xl font-bold text-ink">Aucune carte pour l’instant</p><p className="mb-6">Lance ton raccourci pour copier ta note, puis reviens ici.</p><button className={btn+" bg-acc text-white"} onClick={paste}>Synchroniser ma note</button></div>;
