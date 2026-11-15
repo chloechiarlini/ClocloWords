@@ -10,13 +10,18 @@ Plutôt que d’utiliser une application existante, j’ai voulu la mienne, **re
 
 ## Fonctionnalités
 
-- Cartes alternées : **à écrire** (réponse vérifiée tout de suite) et **à deviner** (À revoir / Presque / Acquis).
+- Cartes alternées : **à écrire** (réponse vérifiée tout de suite, accents et majuscules tolérés) et **à deviner** (À revoir / Presque / Acquis).
 - Sens aléatoire : anglais → français ou français → anglais.
 - **Répétition adaptée** : plus un mot est difficile, plus il revient souvent. Un mot acquis revient quand même, mais moins.
+- **Glisser les cartes** : à droite = bon, à gauche = pas bon, vers le haut = à revoir.
+- **Catégories** : ajoute `#transport` en fin de ligne, ou une ligne `# Transport` avant un groupe de mots. Sans rien, les mots sont rangés automatiquement (Verbes, Expressions, Mots). Une rangée de catégories permet de réviser un seul thème.
+- **Verbes irréguliers** : un onglet dédié avec une soixantaine de verbes à réviser (prétérit et participe passé), sans passer par la note.
+- **La note fait foi** : à chaque synchro, un mot retiré ou modifié dans la note l’est aussi dans l’app. Si le texte copié ne ressemble pas à ta note, rien n’est modifié.
 - Statistiques : progression, bilan de la semaine, série de jours, nombre de tirages par mot.
 - **Fonctionne hors connexion** une fois ouverte une première fois avec du réseau.
-- Les données restent **sur l'appareil** (stockage du navigateur). Aucun compte, aucun serveur, aucune collecte.
-  
+- Tes données restent **sur ton appareil** (stockage du navigateur). Aucun compte, aucun serveur, aucune collecte.
+- Design rose pastel, thème clair et sombre automatique.
+
 ## Format de la note
 
 Une ligne par mot, avec `=` entre l’anglais et le français. Plusieurs traductions se séparent par `/` :
@@ -27,15 +32,15 @@ full / full of people = rempli / rempli de monde
 pretty = plutôt / assez / joli(e) (selon le contexte)
 ```
 
-Siune traduction dans la note est corrigé, la carte est mise à jour à la synchro. Les statistiques sont conservées.
+Les lignes sans `=` (comme le titre de la note) sont ignorées. Si tu corriges une traduction dans la note, la carte est mise à jour à la synchro. Les statistiques sont conservées.
 
 ## Installation sur iPhone
 
-1. Ouvrez l’adresse de l’app dans **un navigateur**.
-2. Touchez Partager, puis « Sur l’écran d’accueil ».
-3. Ouvrez l’app depuis cette icône. Elle s’affiche en plein écran.
+1. Ouvre l’adresse de l’app dans **Safari**.
+2. Touche Partager, puis « Sur l’écran d’accueil ».
+3. Ouvre l’app depuis cette icône. Elle s’affiche en plein écran.
 
-Utilisez toujours cette icône : les données de Safari et celles de l’icône d’accueil sont séparées.
+Utilise toujours cette icône : les données de Safari et celles de l’icône d’accueil sont séparées.
 
 ## Le raccourci Apple pour synchroniser la note
 
@@ -64,7 +69,7 @@ npm run dev     # développement
 npm run build   # produit dist/index.html (fichier unique, sans dépendance externe)
 ```
 
-Le site est publié avec GitHub Pages à partir des fichiers à la racine du dépôt. Pour mettre à jour l’app hors connexion, il suffit de remplacer `index.html` ; si besoin, changez le numéro de version du cache dans `sw.js`.
+Le site est publié avec GitHub Pages à partir des fichiers à la racine du dépôt. Pour mettre à jour l’app hors connexion, il suffit de remplacer `index.html` ; si besoin, change le numéro de version du cache dans `sw.js`.
 
 ## Licence
 
