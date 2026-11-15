@@ -1,38 +1,34 @@
 # ClocloWords
 
-Mon application personnelle de mémo-cartes pour apprendre le vocabulaire anglais, reliée à mes notes Apple.
+Mon application personnelle de mémo-cartes pour apprendre le vocabulaire anglais.
 
 ## Pourquoi cette app ?
 
 Je suis en voyage linguistique. Au fil du voyage, chaque mot que j’apprenais allait dans une note Apple, avec sa traduction. Au fur et à mesure, la liste a grossi, et je voulais m’entraîner pendant mes trajets en bus, souvent **sans connexion**.
 
-Plutôt que d’utiliser une application existante, j’ai voulu la mienne, **reliée directement à mes notes** : dès que j’ajoute un mot dans la note, un raccourci Apple l’envoie dans l’app et la carte est créée automatiquement. Il n’y a donc rien à saisir dans l’application.
+Plutôt que d’utiliser une application existante, j’ai voulu la mienne. J’avais d’abord relié l’app à mes notes avec un raccourci Apple, mais c’était lourd : je gère maintenant mes mots **directement dans l’app**. J’ajoute un mot et sa traduction dans un tableau, et la carte existe aussitôt, dans le jeu comme dans la liste.
 
 ## Fonctionnalités
 
-- Cartes alternées : **à écrire** (réponse vérifiée tout de suite, accents et majuscules tolérés) et **à deviner** (À revoir / Presque / Acquis).
+- **Ajouter et corriger des mots dans l’app** : l’onglet Ma note est un tableau anglais / français / catégorie, modifiable directement. Le bouton + ouvre une fenêtre pour ajouter autant de mots qu’on veut à la suite. Une ligne modifiée met à jour la carte en temps réel, sans perdre sa progression. Si le mot existe déjà, l’app le signale au lieu de créer un doublon.
+- Cartes alternées : **à écrire** (réponse vérifiée tout de suite, accents et majuscules tolérés, « Je ne sais pas » possible) et **à deviner** (on retourne la carte puis on la glisse : à droite = bon, à gauche = pas bon, vers le haut = à revoir).
 - Sens aléatoire : anglais → français ou français → anglais.
-- **Répétition adaptée** : plus un mot est difficile, plus il revient souvent. Un mot acquis revient quand même, mais moins.
-- **Glisser les cartes** : à droite = bon, à gauche = pas bon, vers le haut = à revoir.
-- **Catégories** : ajoute `#transport` en fin de ligne, ou une ligne `# Transport` avant un groupe de mots. Sans rien, les mots sont rangés automatiquement (Verbes, Expressions, Mots). Une rangée de catégories permet de réviser un seul thème.
-- **Verbes irréguliers** : un onglet dédié avec une soixantaine de verbes à réviser (prétérit et participe passé), sans passer par la note.
-- **La note fait foi** : à chaque synchro, un mot retiré ou modifié dans la note l’est aussi dans l’app. Si le texte copié ne ressemble pas à ta note, rien n’est modifié.
-- Statistiques : progression, bilan de la semaine, série de jours, nombre de tirages par mot.
+- **Mot acquis** : 3 bonnes réponses écrites et 3 bonnes réponses devinées d’affilée. Plus un mot est maîtrisé, plus il revient rarement, mais il revient toujours pour ne pas l’oublier.
+- **Séances courtes** : 5, 10, 20 cartes ou libre, avec un bilan à la fin.
+- **À revoir seulement** : un filtre sur les mots pas encore acquis ou en cours.
+- **Annuler** la dernière réponse.
+- **Catégories** : une catégorie facultative par mot (sinon rangement automatique : Verbes, Expressions, Mots), et une rangée pour réviser un seul thème.
+- **Liste** : tous les mots en petites cartes, deux par ligne, avec un réglage anglais ou français pour la face visible.
+- **Verbes irréguliers** : environ 70 verbes. On donne le verbe en anglais ou en français et on écrit les autres formes (prétérit, participe passé, traduction ou infinitif).
+- Statistiques : progression, bilan de la semaine, série de jours, tirages par mot.
 - **Fonctionne hors connexion** une fois ouverte une première fois avec du réseau.
-- Tes données restent **sur ton appareil** (stockage du navigateur). Aucun compte, aucun serveur, aucune collecte.
-- Design rose pastel, thème clair et sombre automatique.
+- Les données restent **sur l’appareil** (stockage du navigateur). Aucun compte, aucun serveur, aucune collecte.
+- **Réglages** : longueur des séances, sens des cartes, type de carte, nombre de réussites pour acquérir un mot, sauvegarde et restauration, remise à zéro de la progression.
+- Design rose pastel, en thème clair.
 
-## Format de la note
+## Sauvegarde
 
-Une ligne par mot, avec `=` entre l’anglais et le français. Plusieurs traductions se séparent par `/` :
-
-```
-empty = vide
-full / full of people = rempli / rempli de monde
-pretty = plutôt / assez / joli(e) (selon le contexte)
-```
-
-Les lignes sans `=` (comme le titre de la note) sont ignorées. Si tu corriges une traduction dans la note, la carte est mise à jour à la synchro. Les statistiques sont conservées.
+Les mots et la progression sont enregistrés dans le navigateur du téléphone. Si on supprime l’icône ou les données du site, ils disparaissent. Dans Ma note, l’icône de réglages donne accès à « Copier la sauvegarde » : toutes les données sont copiées dans le presse-papiers, on les colle dans une note, et on les restaure avec « Restaurer depuis le presse-papiers ».
 
 ## Installation sur iPhone
 
@@ -42,26 +38,9 @@ Les lignes sans `=` (comme le titre de la note) sont ignorées. Si tu corriges u
 
 Utilise toujours cette icône : les données de Safari et celles de l’icône d’accueil sont séparées.
 
-## Le raccourci Apple pour synchroniser la note
-
-Dans l’app **Raccourcis** :
-
-1. Touche **+** pour créer un raccourci, et nomme-le par exemple « Sync ClocloWords ».
-2. Ajoute l’action **Trouver des notes** et mets le filtre « Nom » **est** `Anglais vocabulaire` (le nom de ta note). Limite à 1 note.
-3. Ajoute l’action **Copier dans le presse-papiers** avec la note trouvée.
-4. Touche le nom du raccourci, puis **Ajouter à l’écran d’accueil** pour le lancer d’un geste.
-
-Utilisation, chaque fois que tu as ajouté des mots :
-
-1. Lance le raccourci : il copie ta note.
-2. Ouvre ClocloWords, touche **Synchroniser**, puis autorise le collage quand iOS le demande.
-3. Un message indique le nombre de mots ajoutés ou mis à jour.
-
-Les libellés des actions peuvent varier légèrement selon la version d’iOS et la langue. Si le texte copié est vide ou étrange, ajoute l’action **Obtenir le texte à partir de l’entrée** avant la copie. Un raccourci ne peut pas écrire directement dans l’application : c’est pourquoi le presse-papiers sert de relais, et pourquoi iOS demande une confirmation du collage.
-
 ## Développement
 
-Le code source (React, Tailwind CSS, Vite) est dans `source.zip`.
+Le code source (React, Tailwind CSS, Vite) est dans le dossier `source`.
 
 ```bash
 npm install
