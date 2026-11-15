@@ -1,0 +1,13 @@
+@import "tailwindcss";
+:root{--bg:#fdf3f6;--card:#fff;--ink:#3b2a33;--mute:#a08793;--line:#f6e1e8;--acc:#ec7fa5;--acc2:#fde3ec;--ok:#8fd0b0;--mid:#f6cf8a;--ko:#f29a8f;--blue:#cfe3f6;--shadow:rgba(236,127,165,.16);--on:#3b2a33;color-scheme:light}
+@media (prefers-color-scheme:dark){:root{--bg:#241a20;--card:#33242d;--ink:#f8eaf0;--mute:#b99aa8;--line:#45313b;--acc:#f29ab9;--acc2:#4b2f3c;--ok:#6fb593;--mid:#d9b46c;--ko:#d9786d;--blue:#40566b;--shadow:rgba(0,0,0,.25);color-scheme:dark}}
+@theme inline{--color-bg:var(--bg);--color-card:var(--card);--color-ink:var(--ink);--color-mute:var(--mute);--color-line:var(--line);--color-acc:var(--acc);--color-acc2:var(--acc2);--color-ok:var(--ok);--color-mid:var(--mid);--color-ko:var(--ko);--color-blue:var(--blue);--color-on:var(--on);--shadow-soft:0 10px 28px var(--shadow)}
+html,body,#root{height:100%;margin:0}
+body{background:var(--bg);color:var(--ink);font:16px/1.4 "SF Pro Rounded",ui-rounded,-apple-system,system-ui,sans-serif;overflow:hidden;padding:env(safe-area-inset-top,0) 0 env(safe-area-inset-bottom,0)}
+.scene{perspective:1100px}
+.flip{position:relative;transition:transform .5s ease;transform-style:preserve-3d}
+.flip.on{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;backface-visibility:hidden;-webkit-backface-visibility:hidden}
+.face.back{transform:rotateY(180deg)}
+@keyframes rise{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+.rise{animation:rise .25s ease}
